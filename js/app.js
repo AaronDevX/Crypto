@@ -64,3 +64,12 @@ function cleanHtml(element){
         element.firstChild.remove();
     }
 }
+
+function consultarCotizacion(){
+    
+    const url = `https://min-api.cryptocompare.com/data/generateAvg?fsym=${selectCrypto.value}&tsym=${selectFiat.value}&e=Kraken`;
+
+    fetch(url)
+        .then(respuesta=>respuesta.json())
+        .then(resultado=>displaysResults(resultado))
+}
