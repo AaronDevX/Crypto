@@ -49,3 +49,18 @@ function cotizar(e){
     consultarCotizacion()
 }
 
+function printAlert(message, type){
+    const errorAlert = document.createElement("div");
+    const erroAlertText = document.createElement("P");
+    erroAlertText.textContent = message;
+    errorAlert.classList.add(type);
+
+    errorAlert.appendChild(erroAlertText);
+    result.appendChild(errorAlert);
+}
+
+function cleanHtml(element){
+    while(element.hasChildNodes()){
+        element.firstChild.remove();
+    }
+}
