@@ -39,9 +39,9 @@ function crypto0ptions(cryptos){
 
 function cotizar(e){
     e.preventDefault();
-    cleanHtml(result);
 
     if(selectFiat.value=="" || selectCrypto.value==""){
+        cleanHtml(result);
         printAlert("Seleccione correctamente", "error");
         return;
     }
@@ -69,12 +69,16 @@ function consultarCotizacion(){
     
     const url = `https://min-api.cryptocompare.com/data/generateAvg?fsym=${selectCrypto.value}&tsym=${selectFiat.value}&e=Kraken`;
 
+    showSpinner();
+
     fetch(url)
         .then(respuesta=>respuesta.json())
         .then(resultado=>displaysResults(resultado))
 }
 
 function displaysResults(r){
+    cleanHtml(result)
+
     const {HIGH24HOUR, LOW24HOUR, PRICE, LASTUPDATE} = r.DISPLAY
 
     const highDiv = document.createElement("DIV");
@@ -118,4 +122,19 @@ function displaysResults(r){
     result.appendChild(highDiv);
     result.appendChild(lowDiv);
     result.appendChild(lastUpdateDiv);
+}
+
+function showSpinner(){
+    cleanHtml(result);
+
+    const divSpinner = document.createElement("DIV");
+    divSpinner.classList.add("spinner");
+
+    for(let i=1; i<=3; i++){
+        const spinnerB = document.createElement("DIV");
+        spinnerB.classList.add(`bounce${i}`);
+        divSpinner.appendChild(spinnerB);
+    }
+
+    result.appendChild(divSpinner)
 }
