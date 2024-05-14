@@ -47,6 +47,9 @@ input[type="submit"]{
     font-weight: bold;
     text-align: center;
 }
+.error p{
+    margin: 0;
+}
 
 .resultado {
     color: white;
@@ -59,21 +62,16 @@ input[type="submit"]{
 
 
 .resultado p {
-    font-size: 18px!important;
-}
-.resultado p span {
+    font-size: 18px;
     font-weight: bold;
 }
-p.precio{
-    font-size: 30px!important;
+.resultado span {
+    font-style: italic;
 }
 
-@media (min-width:480px) {
-    form {
-        margin-top: 150px;
-    }
+#price-now{
+    font-size: 30px;
 }
-
 
 .spinner {
     margin: 100px auto 0;

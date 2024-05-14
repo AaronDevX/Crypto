@@ -42,7 +42,7 @@ function cotizar(e){
     cleanHtml(result);
 
     if(selectFiat.value=="" || selectCrypto.value==""){
-        printAlert("Seleccione correctamente", "error-alert");
+        printAlert("Seleccione correctamente", "error");
         return;
     }
 
@@ -72,4 +72,50 @@ function consultarCotizacion(){
     fetch(url)
         .then(respuesta=>respuesta.json())
         .then(resultado=>displaysResults(resultado))
+}
+
+function displaysResults(r){
+    const {HIGH24HOUR, LOW24HOUR, PRICE, LASTUPDATE} = r.DISPLAY
+
+    const highDiv = document.createElement("DIV");
+    const lowDiv = document.createElement("DIV");
+    const priceDiv = document.createElement("DIV");
+    const lastUpdateDiv = document.createElement("DIV");
+
+    const highSpan = document.createElement("SPAN");
+    const lowSpan = document.createElement("SPAN");
+    const priceSpan = document.createElement("SPAN");
+    const lastUpdateSpan = document.createElement("SPAN");
+
+    const highP = document.createElement("P");
+    const lowP = document.createElement("P");
+    const priceP = document.createElement("P");
+    const lastUpdateP = document.createElement("P");
+
+    priceP.id = "price-now"
+
+    highSpan.textContent= "Max Precio 24H: "
+    lowSpan.textContent=   "Min Precio 24H: "
+    priceSpan.textContent= "Precio Actual: "
+    lastUpdateSpan.textContent= "Ultima Actualizacion: "
+
+    highP.textContent= HIGH24HOUR;
+    lowP.textContent= LOW24HOUR;
+    priceP.textContent=PRICE;
+    lastUpdateP.textContent= LASTUPDATE;
+
+    highDiv.appendChild(highSpan);
+    lowDiv.appendChild(lowSpan);
+    priceDiv.appendChild(priceSpan);
+    lastUpdateDiv.appendChild(lastUpdateSpan);
+
+    highDiv.appendChild(highP);
+    lowDiv.appendChild(lowP);
+    priceDiv.appendChild(priceP);
+    lastUpdateDiv.appendChild(lastUpdateP);
+
+    result.appendChild(priceDiv);
+    result.appendChild(highDiv);
+    result.appendChild(lowDiv);
+    result.appendChild(lastUpdateDiv);
 }
