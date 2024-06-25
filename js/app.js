@@ -17,13 +17,22 @@ form.addEventListener("submit", cotizar)
 
 const obtenerDatosCrypto = cryptos => new Promise(resolve => resolve(cryptos))
 
-function consultarCriptomonedas(){
+async function consultarCriptomonedas(){
     const url = "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD";
 
-    fetch(url)
+/*     fetch(url)
         .then(respuesta => respuesta.json())
         .then(resultado => obtenerDatosCrypto(resultado.Data))
         .then(cryptos => crypto0ptions(cryptos))
+ */
+    try{
+        const respuesta = await fetch(url);
+        const resultado = await respuesta.json();
+        const cryptos = await obtenerDatosCrypto(resultado.Data);
+        crypto0ptions(cryptos);
+    } catch(error){
+        console.error(error);
+    }
 }
 
 function crypto0ptions(cryptos){
@@ -65,15 +74,23 @@ function cleanHtml(element){
     }
 }
 
-function consultarCotizacion(){
+async function consultarCotizacion(){
     
     const url = `https://min-api.cryptocompare.com/data/generateAvg?fsym=${selectCrypto.value}&tsym=${selectFiat.value}&e=Kraken`;
 
     showSpinner();
 
-    fetch(url)
+/*     fetch(url)
         .then(respuesta=>respuesta.json())
-        .then(resultado=>displaysResults(resultado))
+        .then(resultado=>displaysResults(resultado)) */
+
+    try{
+        const respuesta = await fetch(url);
+        const resultado = await respuesta.json();
+        displaysResults(resultado);
+    } catch(error){
+        console.error(error);
+    }
 }
 
 function displaysResults(r){
